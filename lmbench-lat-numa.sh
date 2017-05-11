@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 function lat_numa_trash_1core() {
 	local bindcore=$1
 	local bindmem=$2
@@ -14,14 +16,16 @@ function lat_numa_trash_1die() {
 	numactl --cpubind=$binddie --membind=$bindmem ./lat_mem_rd -P 16 -N 5 -t 32M 128
 }
 
-for i in "0 16 32 48"; do
-	for j in "0 1 2 3"; do
+cd lmbench-3.0-a9/bin/lmbench
+
+for ((i=0;i<64;i=i+16)); do
+	for ((j=0;j<4;j++)); do
 		lat_numa_trash_1core $i $j
 	done
 done
 
-for i in "0 1 2 3"; do
-	for j in "0 1 2 3"; do
+for ((i=0;i<4;i++)); do
+	for ((j=0;j<4;j++)); do
 		lat_numa_trash_1die $i $j
 	done
 done
