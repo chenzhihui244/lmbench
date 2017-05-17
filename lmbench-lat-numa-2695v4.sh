@@ -18,7 +18,7 @@ function lat_numa_trash_1die() {
 
 cd lmbench-3.0-a9/bin/lmbench
 
-for ((i=0;i<72;i=i+36)); do
+for ((i=0;i<36;i=i+18)); do
 	for ((j=0;j<2;j++)); do
 		lat_numa_trash_1core $i $j
 	done
