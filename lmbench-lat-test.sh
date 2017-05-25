@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 cd lmbench-3.0-a9/bin/lmbench
 
@@ -10,9 +10,9 @@ function lat_local_test_trash() {
 	echo '********2P 16core  t***********'
 	numactl --membind=0 --physcpubind=0-15 ./lat_mem_rd -P 16  -N 5 -t 256M  128
 	echo '********2P CPU0  t************'
-	numactl --membind=0 --physcpubind=0-31 ./lat_mem_rd -P 32 -N 5 -t 256M 128
+	numactl --physcpubind=0-31 --localalloc ./lat_mem_rd -P 32 -N 5 -t 256M 128
 	echo '********2P CPU12  t************'
-	numactl --membind=0,1 --physcpubind=0-63 ./lat_mem_rd -P 64 -N 5 -t 256M 128
+	numactl --physcpubind=0-63 --localalloc ./lat_mem_rd -P 64 -N 5 -t 256M 128
 }
 
 function lat_local_test_stride() {
@@ -35,8 +35,6 @@ function lat_cross_die_trash() {
 	numactl --membind=1 --physcpubind=0-3 ./lat_mem_rd -P 4 -N 5 -t 256M 128
 	echo '********2P  TA->TC 16core  t***********'
 	numactl --membind=1 --physcpubind=0-15 ./lat_mem_rd -P 16  -N 5 -t 256M  128
-	echo '********2P  TA->TC 16core  t***********'
-	numactl --membind=1 --physcpubind=0-15 ./lat_mem_rd -P 16  -N 5 -t 256M  128
 }
 
 function lat_cross_die_stride() {
@@ -56,8 +54,6 @@ function lat_cross_socket_trash() {
 	numactl --membind=2 --physcpubind=0-3 ./lat_mem_rd -P 4 -N 5 -t 256M 128
 	echo '********P0TA->P1TA  16core  t***********'
 	numactl --membind=2 --physcpubind=0-15 ./lat_mem_rd -P 16 -N 5 -t 256M  128
-	echo '********P0TA->P1TA  32core  t***********'
-	numactl --membind=2 --physcpubind=0-31 ./lat_mem_rd -P 16 -N 5 -t 256M  128
 }
 
 function lat_cross_socket_stride() {

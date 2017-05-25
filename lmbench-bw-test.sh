@@ -3,14 +3,14 @@
 cd lmbench-3.0-a9/bin/lmbench
 
 echo '*********************************'
-echo '      lmbench bw_mem     32M       '
+echo '      lmbench bw_mem     256M       '
 echo '*********************************'
 export LMBENCH_SCHED="DEFAULT"
 
 echo '**********2P core0*************'
 for THREAD_NUM in 1
 do
-	for size in  32M
+	for size in  256M
 	do
 		for bm in rd frd wr fwr bzero rdwr cp fcp bcopy
 		do
@@ -22,7 +22,7 @@ done
 echo '***********2P clu0**************'
 for THREAD_NUM in 4
 do
-	for size in 32M
+	for size in 256M
 	do
 		for bm in rd frd wr fwr bzero rdwr cp fcp bcopy
 		do
@@ -34,7 +34,7 @@ done
 echo '**************2P die0**************'
 for THREAD_NUM in 16
 do
-	for size in 32M
+	for size in 256M
 	do
 		for bm in rd frd wr fwr bzero rdwr cp fcp bcopy
 		do
@@ -46,7 +46,7 @@ done
 echo '**********2P CPU0*************'
 for THREAD_NUM in 32
 do
-	for size in 32M
+	for size in 256M
 	do
 		for bm in rd frd wr fwr bzero rdwr cp fcp bcopy
 		do
@@ -58,7 +58,7 @@ done
 echo '**********2P CPU0,1*************'
 for THREAD_NUM in 64
 do
-	for size in 32M
+	for size in 256M
 	do
 		for bm in rd frd wr fwr bzero rdwr cp fcp bcopy
 		do
@@ -70,7 +70,7 @@ done
 echo '**********2P TA->TC core0*************'
 for THREAD_NUM in 1
 do
-	for size in  32M
+	for size in  256M
 	do
 		for bm in rd frd wr fwr bzero rdwr cp fcp bcopy
 		do
@@ -82,7 +82,7 @@ done
 echo '***********2P TA->TC clu0**************'
 for THREAD_NUM in 4
 do
-	for size in 32M
+	for size in 256M
 	do
 		for bm in rd frd wr fwr bzero rdwr cp fcp bcopy
 		do
@@ -94,7 +94,7 @@ done
 echo '**************2P PTA->TC die0**************'
 for THREAD_NUM in 16
 do
-	for size in 32M
+	for size in 256M
 	do
 		for bm in rd frd wr fwr bzero rdwr cp fcp bcopy
 		do
@@ -104,13 +104,13 @@ do
 done
 
 echo '**************2P P0->P1**************'
-for THREAD_NUM in 32
+for THREAD_NUM in 16
 do
-	for size in 32M
+	for size in 256M
 	do
 		for bm in rd frd wr fwr bzero rdwr cp fcp bcopy
 		do
-			numactl --membind=2,3 --physcpubind=0-31 ./bw_mem -P $THREAD_NUM -N 5 $size $bm
+			numactl --membind=2 --physcpubind=0-15 ./bw_mem -P $THREAD_NUM -N 5 $size $bm
 		done
 	done
 done
